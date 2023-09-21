@@ -43,7 +43,7 @@ def render_frame(A, B):
             xp = int(screen_width / 2 + K1 * ooz * x)
             yp = int(screen_height / 2 - K1 * ooz * y)
 
-            # Calculate luminance
+            # Calculate luminance based on the formulas in https://www.a1k0n.net/2011/07/20/donut-math.html
             L = cosphi * costheta * sinB - cosA * costheta * sinphi - sinA * sintheta + cosB * (cosA * sintheta - costheta * sinA * sinphi)
 
             if L > 0 and ooz > zbuffer[xp][yp]:
