@@ -1,3 +1,4 @@
+# Credit : https://www.a1k0n.net/2011/07/20/donut-math.html
 import math
 import sys
 
@@ -43,13 +44,15 @@ def render_frame(A, B):
             xp = int(screen_width / 2 + K1 * ooz * x)
             yp = int(screen_height / 2 - K1 * ooz * y)
 
-            # Calculate luminance based on the formulas in https://www.a1k0n.net/2011/07/20/donut-math.html
-            L = cosphi * costheta * sinB - cosA * costheta * sinphi - sinA * sintheta + cosB * (cosA * sintheta - costheta * sinA * sinphi)
+            # Check if xp and yp are within valid range
+            if 0 <= xp < screen_width and 0 <= yp < screen_height:
+                # Calculate luminance and update zbuffer
+                L = cosphi * costheta * sinB - cosA * costheta * sinphi - sinA * sintheta + cosB * (cosA * sintheta - costheta * sinA * sinphi)
 
-            if L > 0 and ooz > zbuffer[xp][yp]:
-                zbuffer[xp][yp] = ooz
-                luminance_index = int(L * 8)
-                output[xp][yp] = ".,-~:;=!*#$@"[luminance_index]
+                if L > 0 and ooz > zbuffer[xp][yp]:
+                    zbuffer[xp][yp] = ooz
+                    luminance_index = int(L * 8)
+                    output[xp][yp] = ".,-~:;=!*#$@"[luminance_index]
 
     # Print the frame to the console
     sys.stdout.write('\x1b[H')
